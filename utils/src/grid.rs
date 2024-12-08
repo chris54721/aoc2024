@@ -1,5 +1,19 @@
 use grid::Grid;
 use std::cmp::*;
+use crate::vec::Vec2;
+
+pub fn parse_grid(str: String) -> Grid<char> {
+    Grid::from(
+        str.trim()
+            .lines()
+            .map(|l| l.chars().collect())
+            .collect::<Vec<Vec<char>>>(),
+    )
+}
+
+pub fn in_bounds(grid: &Grid<char>, pos: &Vec2) -> bool {
+    pos.0 >= 0 && pos.1 >= 0 && pos.0 < grid.rows() as isize && pos.1 < grid.cols() as isize
+}
 
 /*** L/R iterator (from SW to NE) ***/
 
@@ -252,10 +266,7 @@ pub fn grid_iter_diag_rl<T>(grid: &Grid<T>) -> GridDiagRLIter<T> {
 }
 
 fn find_diag_end_rl<T>(grid: &Grid<T>, start: (usize, usize)) -> (usize, usize) {
-    let diag_len = min(
-        grid.rows() - 1 - start.0,
-        start.1,
-    );
+    let diag_len = min(grid.rows() - 1 - start.0, start.1);
 
     (start.0 + diag_len, start.1 - diag_len)
 }
