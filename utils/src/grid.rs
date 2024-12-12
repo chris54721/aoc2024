@@ -1,13 +1,13 @@
+use crate::vec::Vec2;
 use grid::Grid;
 use std::cmp::*;
-use crate::vec::Vec2;
 
-pub fn parse_grid(str: String) -> Grid<char> {
+pub fn parse_grid<T: From<char>>(str: String) -> Grid<T> {
     Grid::from(
         str.trim()
             .lines()
-            .map(|l| l.chars().collect())
-            .collect::<Vec<Vec<char>>>(),
+            .map(|l| l.chars().map(|c| c.into()).collect())
+            .collect::<Vec<Vec<T>>>(),
     )
 }
 
