@@ -1,4 +1,4 @@
-use std::ops::{Add, AddAssign, Index, Sub, SubAssign};
+use std::ops::{Add, AddAssign, Index, Mul, Sub, SubAssign};
 
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
 pub struct Vec2(pub isize, pub isize);
@@ -62,6 +62,38 @@ impl Index<usize> for Vec2 {
         } else {
             panic!("index out of bounds");
         }
+    }
+}
+
+impl Mul<usize> for Vec2 {
+    type Output = Vec2;
+    
+    fn mul(self, rhs: usize) -> Self::Output {
+        Vec2(self.0 * rhs as isize, self.1 * rhs as isize)
+    }
+}
+
+impl Mul<isize> for Vec2 {
+    type Output = Vec2;
+
+    fn mul(self, rhs: isize) -> Self::Output {
+        Vec2(self.0 * rhs, self.1 * rhs)
+    }
+}
+
+impl Mul<Vec2> for isize {
+    type Output = Vec2;
+    
+    fn mul(self, rhs: Vec2) -> Self::Output {
+        Vec2(self * rhs.0, self * rhs.1)
+    }
+}
+
+impl Mul<Vec2> for usize {
+    type Output = Vec2;
+    
+    fn mul(self, rhs: Vec2) -> Self::Output {
+        Vec2(self as isize * rhs.0, self as isize * rhs.1)
     }
 }
 
