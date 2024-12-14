@@ -1,4 +1,4 @@
-use std::ops::{Add, AddAssign, Index, Mul, Sub, SubAssign};
+use std::ops::{Add, AddAssign, Index, Mul, Div, Sub, SubAssign};
 
 #[derive(Debug, Copy, Clone, Eq, PartialEq, Hash)]
 pub struct Vec2(pub isize, pub isize);
@@ -94,6 +94,22 @@ impl Mul<Vec2> for usize {
     
     fn mul(self, rhs: Vec2) -> Self::Output {
         Vec2(self as isize * rhs.0, self as isize * rhs.1)
+    }
+}
+
+impl Div<usize> for Vec2 {
+    type Output = Vec2;
+
+    fn div(self, rhs: usize) -> Self::Output {
+        Vec2(self.0 / rhs as isize, self.1 / rhs as isize)
+    }
+}
+
+impl Div<isize> for Vec2 {
+    type Output = Vec2;
+
+    fn div(self, rhs: isize) -> Self::Output {
+        Vec2(self.0 / rhs, self.1 / rhs)
     }
 }
 
