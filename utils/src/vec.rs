@@ -81,6 +81,14 @@ impl Mul<isize> for Vec2 {
     }
 }
 
+impl Mul<i32> for Vec2 {
+    type Output = Vec2;
+
+    fn mul(self, rhs: i32) -> Self::Output {
+        Vec2(self.0 * rhs as isize, self.1 * rhs as isize)
+    }
+}
+
 impl Mul<Vec2> for isize {
     type Output = Vec2;
     
